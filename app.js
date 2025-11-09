@@ -334,15 +334,15 @@ function renderSubjects() {
 
     emptyState.classList.add('hidden');
     
-    // Store which subjects are currently collapsed
-    const collapsedSubjects = new Set();
+    // Store which subjects are currently expanded (default is collapsed)
+    const expandedSubjects = new Set();
     const existingCards = container.querySelectorAll('.subject-card');
     existingCards.forEach(card => {
         const unitsContainer = card.querySelector('.units-container');
-        if (unitsContainer && unitsContainer.classList.contains('hidden')) {
+        if (unitsContainer && !unitsContainer.classList.contains('hidden')) {
             const subjectId = card.dataset.subjectId;
             if (subjectId) {
-                collapsedSubjects.add(subjectId);
+                expandedSubjects.add(subjectId);
             }
         }
     });
@@ -353,13 +353,13 @@ function renderSubjects() {
         const subjectCard = createSubjectCard(subject);
         container.appendChild(subjectCard);
         
-        // Restore collapsed state if it was collapsed before
-        if (collapsedSubjects.has(subject.id)) {
+        // Restore expanded state if it was expanded before (default is collapsed)
+        if (expandedSubjects.has(subject.id)) {
             const unitsContainer = subjectCard.querySelector('.units-container');
             const collapseBtn = subjectCard.querySelector('.collapse-btn');
             if (unitsContainer && collapseBtn) {
-                unitsContainer.classList.add('hidden');
-                collapseBtn.innerHTML = '▶';
+                unitsContainer.classList.remove('hidden');
+                collapseBtn.innerHTML = '▼';
             }
         }
     });
@@ -405,7 +405,7 @@ function createSubjectCard(subject) {
 
     const collapseBtn = document.createElement('button');
     collapseBtn.className = 'collapse-btn';
-    collapseBtn.innerHTML = '▼';
+    collapseBtn.innerHTML = '▶'; // Start collapsed
     collapseBtn.title = 'Minimize/Expand';
     collapseBtn.onclick = () => toggleSubjectCollapse(card);
 
@@ -482,7 +482,7 @@ function createSubjectCard(subject) {
     header.appendChild(actions);
 
     const unitsContainer = document.createElement('div');
-    unitsContainer.className = 'units-container';
+    unitsContainer.className = 'units-container hidden'; // Start hidden (collapsed)
 
     if (subject.units.length > 0) {
         subject.units.forEach(unit => {
