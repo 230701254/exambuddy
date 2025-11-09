@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Buddy - Exam Preparation Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Exam Buddy</h1>
+            <p>Track your exam preparation progress</p>
+        </header>
+
+        <!-- Progress Section -->
+        <div id="progress-section" class="progress-card">
+            <h2>Overall Progress</h2>
+            <div class="progress-wrapper">
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <div class="progress-percentage">
+                    <span id="progress-percentage">0</span>%
+                </div>
+            </div>
+            <p class="progress-text">
+                <span id="progress-text">0 of 0 topics completed</span>
+            </p>
+        </div>
+
+        <!-- Add Subject Button -->
+        <div class="button-container">
+            <button id="add-subject-btn" class="btn btn-primary">+ Add Subject</button>
+        </div>
+
+        <!-- Subjects Container -->
+        <div id="subjects-container">
+            <!-- Subjects will be rendered here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state hidden">
+            <div class="empty-icon">📚</div>
+            <h3>No subjects yet</h3>
+            <p>Start by adding your first subject to track your exam preparation!</p>
+            <button id="empty-add-subject-btn" class="btn btn-primary">+ Add Your First Subject</button>
+        </div>
+    </div>
+
+    <!-- Modal for CRUD Operations -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add Subject</h3>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <form id="modal-form">
+                <input type="hidden" id="modal-type" value="">
+                <input type="hidden" id="modal-subject-id" value="">
+                <input type="hidden" id="modal-unit-id" value="">
+                <input type="hidden" id="modal-topic-id" value="">
+                
+                <div class="form-group">
+                    <label for="modal-name">Name</label>
+                    <input type="text" id="modal-name" required>
+                </div>
+                
+                <div id="exam-date-group" class="form-group hidden">
+                    <label for="modal-exam-date">Exam Date (Optional)</label>
+                    <input type="date" id="modal-exam-date">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" id="cancel-modal" class="btn btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Confirm Delete</h3>
+            <p id="delete-message">Are you sure you want to delete this item? This action cannot be undone.</p>
+            <div class="form-actions">
+                <button id="confirm-delete" class="btn btn-danger">Delete</button>
+                <button id="cancel-delete" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
